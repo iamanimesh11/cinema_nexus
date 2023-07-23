@@ -3,6 +3,14 @@ import streamlit as st
 import pickle
 import pandas
 import requests
+asset_url = 'https://github.com/iamanimesh11/cinema_nexus/releases/download/streamlite/similarity.pkl'
+def download_asset(url, filename):
+    response = requests.get(url)
+    with open(filename, 'wb') as f:
+        f.write(response.content)
+
+# Download the asset and save it with the desired filename
+download_asset(asset_url, 'similarity.pkl')
 
 def fetch_poster(movie_id):
      response =requests.get('https://api.themoviedb.org/3/movie/{}?api_key=98df14e19b61a51d1c85c25706274353&language=en-US'.format(movie_id))
