@@ -4,7 +4,19 @@ import pickle
 import pandas
 import requests
 
+def download_similarity_file(file_id, destination):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(destination, "wb") as f:
+            f.write(response.content)
+    else:
+        st.error("Error downloading the similarity file.")
 
+# Replace "YOUR_FILE_ID" with the actual File ID of your similarity.pkl file on Google Drive
+similarity_file_id = "1ZBUzHW5-knm-lo2AMiFVopnzKXwCZorx"
+similarity_file_path = "similarity.pkl"
+download_similarity_file(similarity_file_id, similarity_file_path)
 def fetch_poster(movie_id):
      response =requests.get('https://api.themoviedb.org/3/movie/{}?api_key=98df14e19b61a51d1c85c25706274353&language=en-US'.format(movie_id))
      data = response.json()
@@ -13,7 +25,7 @@ def fetch_poster(movie_id):
 
 movies_list = pickle.load(open('movies.pkl','rb'))
 movies_list = pd.DataFrame(movies_list)
-similarity = pickle.load(open('similarity.pkl','rb'))
+similarity = pickle.load(open(similarity_file_path,'rb'))
 
 def recommend(movie):
     index = movies_list[movies_list['title'] ==movie].index[0]
