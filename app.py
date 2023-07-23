@@ -36,7 +36,7 @@ def recommend(movie):
     return recommended_movies_list,recommended_movies_list_poster
 
 
-st.title("Movie recommender System")
+st.title("Cinema Nexus..")
 movie_names_options = [''] + movies_list['title'].values.tolist()
 movie_name_selections= st.selectbox('Type the movie name ',movie_names_options)
 #movie_name_selections= st.selectbox('Type the movie name ',movies_list['title'].values)
