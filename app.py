@@ -36,6 +36,11 @@ def recommend(movie):
     return recommended_movies_list,recommended_movies_list_poster
 
 st.sidebar.title("About this app")
+st.sidebar.title("About this app")
+st.sidebar.write("With a vast database of movies and a powerful recommendation algorithm, Movie Suggest helps you discover your next favorite films effortlessly.")
+st.sidebar.write("app generates personalized movie recommendations based on your favorite films. Simply type in the name of a movie you love, and Movie Suggest will present you with a handpicked list of similar movies that are sure to pique your interest.")
+st.sidebar.write("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--Animesh")
+
 st.title("Cinema Nexus..")
 movie_names_options = [''] + movies_list['title'].values.tolist()
 movie_name_selections= st.selectbox('Type the movie name ',movie_names_options)
