@@ -12,6 +12,22 @@ def download_asset(url, filename):
 # Download the asset and save it with the desired filename
 download_asset(asset_url, 'similarity.pkl')
 
+background_image = "https://c4.wallpaperflare.com/wallpaper/137/163/699/stars-4k-8k-interstellar-wallpaper-preview.jpg"
+
+# Set the CSS style with the background image
+background_style = f'''
+    <style>
+        body {{
+            background-image: url("{background_image}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+    </style>
+'''
+
+st.markdown(background_style, unsafe_allow_html=True)
+
 def fetch_poster(movie_id):
      response =requests.get('https://api.themoviedb.org/3/movie/{}?api_key=98df14e19b61a51d1c85c25706274353&language=en-US'.format(movie_id))
      data = response.json()
