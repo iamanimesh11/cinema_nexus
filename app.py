@@ -3,6 +3,7 @@ import streamlit as st
 import pickle
 import pandas
 import requests
+import datetime
 asset_url = 'https://github.com/iamanimesh11/cinema_nexus/releases/download/streamlite/similarity.pkl'
 def download_asset(url, filename):
     response = requests.get(url)
