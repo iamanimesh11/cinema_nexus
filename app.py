@@ -44,7 +44,7 @@ st.title("Cinema Nexus..")
 st.markdown("Made by Animesh | [Github](https://github.com/iamanimesh11) | [LinkedIn](https://www.linkedin.com/in/animesh-singh11)")
 
 movie_names_options = [''] + movies_list['title'].values.tolist()
-movie_name_selections= st.selectbox('Type the movie name ',movie_names_options)
+movie_name_selections= st.selectbox('Hey there, movie enthusiast! 🍿 Ready to find your next favorite film? ',movie_names_options)
 st.text("Try movies : Avatar, Spectre ,Tangled,Interstelllar, Man of steel")
 
 #movie_name_selections= st.selectbox('Type the movie name ',movies_list['title'].values)
