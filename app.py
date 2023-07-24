@@ -11,7 +11,42 @@ def download_asset(url, filename):
 
 # Download the asset and save it with the desired filename
 download_asset(asset_url, 'similarity.pkl')
+#   liked........
+if st.sidebar.button("Liked the page "):
+    # Process the feedback here (e.g., save it to a database, log it, etc.)
+    current_time = datetime.datetime.now()
+    with open("like_log.txt", "a") as log_file:
+        log_file.write(f"Page Liked: {current_time}\n")
 
+    st.success("You liked this page!")
+    st.sidebar.success("Liked")
+    st.sidebar.text("thanks :)")
+# updates notifications:::
+marquee_style = """
+<style>
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.marquee p {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 10s linear infinite;
+    color: yellow;
+}
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+</style>
+"""
+
+
+
+marquee_html = '<div class="marquee"><p>updates soon!! &nbsp;&nbsp;&nbsp;</p></div>'
+st.markdown(marquee_style, unsafe_allow_html=True)
+st.markdown(marquee_html, unsafe_allow_html=True)
 
 def fetch_poster(movie_id):
      response =requests.get('https://api.themoviedb.org/3/movie/{}?api_key=98df14e19b61a51d1c85c25706274353&language=en-US'.format(movie_id))
@@ -29,12 +64,53 @@ def recommend(movie):
 
     recommended_movies_list = []
     recommended_movies_list_poster= []
-    for i in movie_rec_list[1:6]:
+    for i in movie_rec_list[1:7]:
         movie_id = movies_list.iloc[i[0]].movie_id
         #fetch poster from api
         recommended_movies_list.append(movies_list.iloc[i[0]].title)
         recommended_movies_list_poster.append(fetch_poster(movie_id))
     return recommended_movies_list,recommended_movies_list_poster
+
+
+
+st.markdown(
+    """
+    <style>
+    .movie-title {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .movie-poster {
+        max-width: 200px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+    .recommendations-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px 0;
+    }
+    .recommendation-card {
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 220px;
+        text-align: center;
+    }
+    .recommendation-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.sidebar.title("About this app")
 st.sidebar.write("With a vast database of movies and a powerful recommendation algorithm, Movie Suggest helps you discover your next favorite films effortlessly.")
@@ -48,7 +124,46 @@ movie_names_options = [''] + movies_list['title'].values.tolist()
 movie_name_selections= st.selectbox('Hey there, movie enthusiast! 🍿 Ready to find your next favorite film? ',movie_names_options)
 st.text("Try movies : Avatar, Spectre ,Tangled,Interstelllar, Man of steel")
 
-#movie_name_selections= st.selectbox('Type the movie name ',movies_list['title'].values)
+def recommend_more(movie):
+    index = movies_list[movies_list['title'] == movie].index[0]
+    movie_rec_list = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
+
+    recommendedmore_movies_list = []
+    recommendedmore_movies_list_poster = []
+    for i in movie_rec_list[6:12]:
+        movie_id = movies_list.iloc[i[0]].movie_id
+        recommendedmore_movies_list.append(movies_list.iloc[i[0]].title)
+        recommendedmore_movies_list_poster.append(fetch_poster(movie_id))
+    return recommendedmore_movies_list, recommendedmore_movies_list_poster
+
+
+if st.button("Tell me more like this..."):
+    if movie_name_selections.strip() == "":
+        st.warning('Hey there is no movie without a name, huh.')
+    else:
+        recommended_movie_names, recommended_movie_posters = recommend(movie_name_selections)
+        num_recommendations = len(recommended_movie_names)
+
+        st.markdown(
+            "<div class='recommendations-container'>",
+            unsafe_allow_html=True
+        )
+
+        for i in range(0, num_recommendations, 3):
+            cols = st.columns(3)
+            for j in range(min(3, num_recommendations - i)):
+                with cols[j]:
+                    st.markdown(
+                        f"<div class='recommendation-card'>"
+                        f"<p class='movie-title'>{recommended_movie_names[i + j]}</p>"
+                        f"<img class='movie-poster' src='{recommended_movie_posters[i + j]}' alt='Poster'>"
+                        "</div>",
+                        unsafe_allow_html=True
+                    )
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
 
 if st.button("tell me more like this..."):
      if movie_name_selections.strip() == "":
@@ -62,17 +177,29 @@ if st.button("tell me more like this..."):
                 st.text(recommended_movie_names[i])
                 st.image(recommended_movie_posters[i])
 
+if  st.button("Want More"):
+    if movie_name_selections.strip() == "":
+        st.warning('Hey there is no movie without a name, huh.')
+    else:
+        recommended_movie_names, recommended_movie_posters = recommend_more(movie_name_selections)
+        num_recommendations = len(recommended_movie_names)
 
-background_image = 'pngwing.com.png'  # Replace with the actual image file name
-st.markdown(
-    f"""
-    <style>
-        body {{
-            background-image: url("{background_image}");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        st.markdown(
+            "<div class='recommendations-container'>",
+            unsafe_allow_html=True
+        )
+
+        for i in range(0, num_recommendations, 3):
+            cols = st.columns(3)
+            for j in range(min(3, num_recommendations - i)):
+                with cols[j]:
+                    st.markdown(
+                        f"<div class='recommendation-card'>"
+                        f"<p class='movie-title'>{recommended_movie_names[i + j]}</p>"
+                        f"<img class='movie-poster' src='{recommended_movie_posters[i + j]}' alt='Poster'>"
+                        "</div>",
+                        unsafe_allow_html=True
+                    )
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
