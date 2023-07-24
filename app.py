@@ -131,7 +131,7 @@ st.markdown(
     "Made by Animesh | [Github](https://github.com/iamanimesh11) | [LinkedIn](https://www.linkedin.com/in/animesh-singh11)")
 
 movie_names_options = [''] + movies_list['title'].values.tolist()
-movie_name_selections= st.selectbox('Type the movie name ',movie_names_options)
+movie_name_selections= st.selectbox('Hey there, movie enthusiast! 🍿 Ready to find your favorite movie? ',movie_names_options)
 st.text("Try movies : Avatar, Spectre ,Tangled,Interstelllar, Man of steel")
 
 
@@ -149,7 +149,7 @@ def recommend_more(movie):
 
 if st.button("Launch Cinema 🎦."):
     if movie_name_selections.strip() == "":
-        st.warning('Hey there is no movie without a name, huh.')
+        st.warning('Movies await!🍿 Select one now')
     else:
         recommended_movie_names, recommended_movie_posters = recommend(movie_name_selections)
         num_recommendations = len(recommended_movie_names)
