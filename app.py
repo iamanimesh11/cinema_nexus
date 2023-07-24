@@ -35,7 +35,7 @@ def recommend(movie):
         recommended_movies_list_poster.append(fetch_poster(movie_id))
     return recommended_movies_list,recommended_movies_list_poster
 
-
+st.sidebar.title("About this app")
 st.title("Cinema Nexus..")
 movie_names_options = [''] + movies_list['title'].values.tolist()
 movie_name_selections= st.selectbox('Type the movie name ',movie_names_options)
