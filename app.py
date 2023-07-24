@@ -52,7 +52,7 @@ st.text("Try movies : Avatar, Spectre ,Tangled,Interstelllar, Man of steel")
 if st.button("tell me more like this..."):
      if movie_name_selections.strip() == "":
         st.warning('Hey there is no movie without name huh.')
-    else:
+     else:
         recommended_movie_names,recommended_movie_posters= recommend(movie_name_selections)
         num_recommendations = len(recommended_movie_names)
         cols = st.columns(num_recommendations)
