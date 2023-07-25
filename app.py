@@ -12,15 +12,15 @@ hide_github_icon_js = """
 #MainMenu {
     display: none;
 }
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: default !important;
+button.css-ch5dnh {
+    display: none;
 }
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const githubIcon = document.querySelector('[data-testid="stImageGithubIcon"]');
-    if (githubIcon) {
-        githubIcon.style.display = 'none';
+    const toolbar = document.querySelector('[data-testid="stToolbar"]');
+    if (toolbar) {
+        toolbar.style.display = 'none';
     }
 });
 </script>
