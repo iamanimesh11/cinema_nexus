@@ -18,7 +18,9 @@ def log_action(action, timestamp):
         log_file.write(f"{action}: {timestamp}\n")
 #   liked........
 if st.sidebar.button("Liked the page?"):
-    # Process the feedback here (e.g., save it to a database, log it, etc.)
+    
+# Process the feedback here
+
     current_time = datetime.datetime.now()
     log_action("Page Liked", current_time)
     st.success("You liked this page!")
@@ -30,10 +32,10 @@ if rate_me:
     current_time = datetime.datetime.now()
     log_action(f"Rated: {rate_me} stars", current_time)
     st.sidebar.write("Thanks :)")
+
 # updates notifications:::
 
-
-
+
 marquee_style = """
 <style>
 .marquee {
