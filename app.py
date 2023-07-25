@@ -4,6 +4,32 @@ import pickle
 import pandas
 import requests
 import datetime
+
+st.set_page_config(page_title='cinema Nexus', layout='wide')
+
+hide_github_icon_js = """
+<style>
+#MainMenu {
+    display: none;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: default !important;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const githubIcon = document.querySelector('[data-testid="stImageGithubIcon"]');
+    if (githubIcon) {
+        githubIcon.style.display = 'none';
+    }
+});
+</script>
+"""
+st.markdown(hide_github_icon_js, unsafe_allow_html=True)
+
+
+
+
 asset_url = 'https://github.com/iamanimesh11/cinema_nexus/releases/download/streamlite/similarity.pkl'
 def download_asset(url, filename):
     response = requests.get(url)
@@ -35,7 +61,8 @@ if rate_me:
 
 # updates notifications:::
 
-
+
+
 marquee_style = """
 <style>
 .marquee {
