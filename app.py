@@ -5,7 +5,7 @@ import pandas
 import requests
 import datetime
 
-st.set_page_config(page_title='cinema Nexus', layout='wide')
+st.set_page_config(page_title='cinema Nexus', layout='wide',page_icon="🍿")
 
 hide_github_icon_js = """
 <style>
