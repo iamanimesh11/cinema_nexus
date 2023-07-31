@@ -85,9 +85,9 @@ marquee_style = """
 
 
 
-marquee_html = '<div class="marquee"><p>updates soon!! &nbsp;&nbsp;&nbsp;</p></div>'
-st.markdown(marquee_style, unsafe_allow_html=True)
-st.markdown(marquee_html, unsafe_allow_html=True)
+# marquee_html = '<div class="marquee"><p>updates soon!! &nbsp;&nbsp;&nbsp;</p></div>'
+# st.markdown(marquee_style, unsafe_allow_html=True)
+# st.markdown(marquee_html, unsafe_allow_html=True)
 
 def fetch_poster(movie_id):
      response =requests.get('https://api.themoviedb.org/3/movie/{}?api_key=98df14e19b61a51d1c85c25706274353&language=en-US'.format(movie_id))
